@@ -47,6 +47,9 @@ table {
 	border-spacing: 0;
 }
 /** end reset css**/
+html {
+	scroll-behavior: smooth;
+  }
 body {
 	max-width: 1140px;
 	margin:auto;
@@ -61,7 +64,9 @@ header {
 section {
 	margin: 50px 0
 }
-
+a {
+	text-decoration: none;
+}
 h1{
 	display: flex;
 	flex-direction: column;
@@ -70,14 +75,12 @@ h1{
 	font-weight: 800;
 	color: #B1663C
 }
-
 h1 > span {
 	font-family: 'Work Sans';
 	font-size:10px;
 	letter-spacing: 0.1em;
 ;
 }
-
 h2{
 	font-family: 'Syne';
 	font-weight: 700;
@@ -94,7 +97,6 @@ nav li {
 	padding: 0 10px;
 	font-size: 1.2em;
 }
-
 li:hover {
 	color: #B1663C;
 }
@@ -110,7 +112,6 @@ li:hover {
 	margin: auto;
 	width: 80%;
 }
-
 #introduction article {
 	flex: 1
 }
@@ -131,43 +132,42 @@ li:hover {
 	grid-column-gap: 20px;
 	grid-row-gap: 20px;
 }
-
 .gallery img {
 	width: 100%;
 
 }
-#contact {
+.form {
 	width: 50%;
-margin: auto;
+	margin: auto;
 }
-#contact > * {
+.form > * {
 	text-align: center;
-
 }
-#contact h2{
+.form h2{
 	margin-bottom: 20px;
 }
-#contact form {
+.form form {
 	text-align: left;
 	margin-top:30px;
 	display: flex;
 	flex-direction: column;
 }
-
-#contact input {
+.form input {
 	height: 50px;
 	font-size: 1.2em;
 	border: none;
 	box-shadow: 0px 4px 14px rgba(0, 0, 0, 0.09);
 }
-#contact label {
+.form label {
 	margin: 2em 0 1em 0;
 }
-#contact textarea {
+#form textarea {
 	border: none;
 	box-shadow: 0px 4px 14px rgba(0, 0, 0, 0.09);
 }
-
+#forgot-password-link {
+	text-decoration: underline;
+}
 input[type="submit"]{
 	font-family: 'Syne';
 	font-weight: 700;
@@ -178,7 +178,6 @@ input[type="submit"]{
 	text-align: center;
 	border-radius: 60px ;
 }
-
 .filter-buttons {
 	display: flex;
 	height: 37px;
@@ -187,7 +186,6 @@ input[type="submit"]{
 	margin-top: 51px;
 	margin-bottom: 51px;	
 }
-
 button{
 	height: 100%;
 	border: 1px solid #1D6154;
@@ -199,23 +197,19 @@ button{
 	border-radius: 60px ;
 	padding: 0px 20px;
 }
-
 .active {
 	color: white;
 	background-color: #1D6154;
 }
-
 button:hover{
 	color: white;
 	background-color: #0E2F28;
 }
-
 footer nav ul {
 	display: flex;
 	justify-content: flex-end;
 	margin: 2em
 }
-
 .display-none {
 	display: none;
 }
