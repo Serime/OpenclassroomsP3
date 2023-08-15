@@ -8,10 +8,26 @@
 	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 	<link href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=Work+Sans&display=swap" rel="stylesheet">
 	<meta name="description" content="">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css"
+        integrity="sha512-MV7K8+y+gLIBoVD59lQIYicR65iaqukzvf/nwasF0nqhPay5w/9lJmVM2hMDcnK1OnMGCdVK+iQrJ7lzPJQd1w=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
 	<link rel="stylesheet" href="./assets/style.css">
+	<link rel="stylesheet" href="./assets/modal.css">
 	<script src="src/index.js" defer></script>
 </head>
 <body>
+<aside id="modal" class="modal" aria-hidden="true" role="dialog" aria-labelledby="title-modal">
+	<div class="modal-wrapper">
+		<button id="close-modal">
+			<i class="fa-xl fa-solid fa-xmark"></i>
+		</button>
+		<h1 id="title-modal">Galerie photo</h1>
+		<hr>
+		<button id="add-photo-modal">Ajouter une photo</button>
+		<button id="del-gallery">Supprimer la galerie</button>
+	</div>
+</div>
+</aside>
 <header>
 	<h1>Sophie Bluel <span>Architecte d'inteérieur</span></h1>
 	<nav>
@@ -35,8 +51,14 @@
 			<p>En cas de besoin, une équipe pluridisciplinaire peut-être constituée : architecte DPLG, décorateur(trice)</p>
 		</article>
 	</section>
-	<section id="portfolio">
-		<h2 id="projets">Mes Projets</h2>
+	<section id="portfolio">	
+		<div class="projets-and-modify">
+			<h2 id="projets">Mes Projets</h2>
+			<div id="modify-gallery" class="display-none">
+				<i class="fa-xl fa-solid fa-pen-to-square" aria-hidden="true"></i>
+				<button>modifier</button>	
+			</div>	
+		</div>	
 		<div class="filter-buttons" id="filter-buttons">
 		</div>
 		<div class="gallery" id="gallery">
@@ -52,7 +74,7 @@
 			<input type="email" name="email" id="email">
 			<label for="message">Message</label>
 			<textarea name="message" id="message" cols="30" rows="10"></textarea>
-			<input type="submit" value="Envoyer">
+			<input type="button"  value="Envoyer">
 		</form>
 	</section>
 </main>

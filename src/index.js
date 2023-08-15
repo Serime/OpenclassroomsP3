@@ -1,5 +1,8 @@
 const API_URL = "http://localhost:5678/api/"
 const categoriesSet = new Set(); 
+const modal = document.getElementById("modal");
+const closeModal = document.getElementById("close-modal");
+closeModal.addEventListener("click", closeModalClick);
 
 function filterWorks() {
   const works = document.getElementsByClassName("work");
@@ -54,6 +57,20 @@ function filterButtonClick() {
   filterWorks();
 }
 
+function closeModalClick() {
+  modal.setAttribute("class","modal display-none");
+  modal.setAttribute("aria-hidden", true);
+  modal.removeAttribute("aria-modal");
+
+  modal.setAttribute("style","");
+}
+
+function modifyButtonClick() {
+  modal.setAttribute("class","modal");
+  modal.removeAttribute("aria-hidden");
+  modal.setAttribute("aria-modal", "true");
+}
+
 function displayWorks(works) {
 
   const gallery = document.getElementById("gallery");
@@ -105,7 +122,7 @@ function displayCategoriesButtons(categories) {
 }
 
 async function fetchAndUse(path, functionForReponse) {
-  const response = await fetch(API_URL + path);
+  const response = await fetch(API_URL + path);//attend
   const responseJson = await response.json();
   functionForReponse(responseJson);
 }
@@ -113,3 +130,9 @@ async function fetchAndUse(path, functionForReponse) {
 fetchAndUse("works", displayWorks);
 fetchAndUse("categories", displayCategoriesButtons);
 
+if (localStorage.getItem("token"))
+{
+  const modifyGallery = document.getElementById("modify-gallery");
+  modifyGallery.setAttribute("class","")
+  modifyGallery.addEventListener("click", modifyButtonClick);
+}

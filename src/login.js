@@ -17,19 +17,19 @@ var myInit = {
   body: JSON.stringify(user),
 };
 
-function login () {
+function login() {
   user.email = emailInput.value;
   user.password = passwordInput.value;
   myInit.body = JSON.stringify(user);
   fetchLogin("users/login");
 }
 
-function loginOk (responseJson) {
+function loginOk(responseJson) {
   localStorage.setItem("token", responseJson.token);
   document.location.href="index.html"; 
 }
 
-function loginKo () {
+function loginKo() {
   txtErrorLogin.setAttribute("class", "display");
 }
 
@@ -39,16 +39,16 @@ function listenLoginInput() {
 
 async function fetchLogin(path) {
   const response = await fetch(API_URL + path, myInit);
-  const responseJson = await response.json();
+  const responseJson = response.json();
   if (response.ok)
   {
+    console.log("responseJson :", responseJson.token);
     loginOk(responseJson);
   }
   else
   {
     loginKo();
   }
-  
 }
 
 listenLoginInput();
