@@ -1,8 +1,5 @@
 const API_URL = "http://localhost:5678/api/"
 const categoriesSet = new Set(); 
-const modal = document.getElementById("modal");
-const closeModal = document.getElementById("close-modal");
-closeModal.addEventListener("click", closeModalClick);
 
 function filterWorks() {
   const works = document.getElementsByClassName("work");
@@ -122,17 +119,10 @@ function displayCategoriesButtons(categories) {
 }
 
 async function fetchAndUse(path, functionForReponse) {
-  const response = await fetch(API_URL + path);//attend
+  const response = await fetch(API_URL + path);
   const responseJson = await response.json();
   functionForReponse(responseJson);
 }
 
 fetchAndUse("works", displayWorks);
 fetchAndUse("categories", displayCategoriesButtons);
-
-if (localStorage.getItem("token"))
-{
-  const modifyGallery = document.getElementById("modify-gallery");
-  modifyGallery.setAttribute("class","")
-  modifyGallery.addEventListener("click", modifyButtonClick);
-}

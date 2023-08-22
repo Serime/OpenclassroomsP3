@@ -39,10 +39,9 @@ function listenLoginInput() {
 
 async function fetchLogin(path) {
   const response = await fetch(API_URL + path, myInit);
-  const responseJson = response.json();
+  const responseJson = await response.json();
   if (response.ok)
   {
-    console.log("responseJson :", responseJson.token);
     loginOk(responseJson);
   }
   else

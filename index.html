@@ -14,20 +14,22 @@
 	<link rel="stylesheet" href="./assets/style.css">
 	<link rel="stylesheet" href="./assets/modal.css">
 	<script src="src/index.js" defer></script>
+	<script src="src/modal.js" defer></script>
 </head>
 <body>
-<aside id="modal" class="modal" aria-hidden="true" role="dialog" aria-labelledby="title-modal">
-	<div class="modal-wrapper">
+<dialog  id="modal" class="modal-wrapper" aria-hidden="true" aria-labelledby="title-modal" open>
+	<div class="modal">
 		<button id="close-modal">
 			<i class="fa-xl fa-solid fa-xmark"></i>
 		</button>
 		<h1 id="title-modal">Galerie photo</h1>
+		<div class="gallery-modal" id="gallery-modal">
+		</div>
 		<hr>
 		<button id="add-photo-modal">Ajouter une photo</button>
 		<button id="del-gallery">Supprimer la galerie</button>
 	</div>
-</div>
-</aside>
+</dialog>
 <header>
 	<h1>Sophie Bluel <span>Architecte d'inteérieur</span></h1>
 	<nav>
