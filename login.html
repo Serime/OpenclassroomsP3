@@ -10,6 +10,8 @@
 	<meta name="description" content="">
 	<link rel="stylesheet" href="./assets/style.css">
 	<link rel="stylesheet" href="./assets/login.css">
+	<script src="src/constant.js" defer></script>	
+	<script src="src/fetch.js" defer></script>
 	<script src="src/login.js" defer></script>
 </head>
 <body>
@@ -34,7 +36,9 @@
 			<input type="password" name="password" id="password">
 			<input id="login" type="button" value="Se connecter">
 		</form>
-		<p id="forgot-password-text" class="display-none">Mot de passe incorrect</p>
+		<p id="txt-error-email-missing" class="display-none">Email absent</p>
+		<p id="txt-error-password-missing" class="display-none">Mot de passe absent</p>
+		<p id="txt-error-login" class="display-none">Email et/ou le mot de passe est incorrect</p>
 		<p id="forgot-password-link">Mot de passe oublié</p>
 	</section>
 </main>

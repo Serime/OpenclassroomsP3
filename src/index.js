@@ -1,4 +1,3 @@
-const API_URL = "http://localhost:5678/api/"
 const categoriesSet = new Set(); 
 
 function filterWorks() {
@@ -7,8 +6,10 @@ function filterWorks() {
   for (let index = 0; index < works.length; index++) {
 
     const work = works[index];
-
-    if (categoriesSet.has("0") || categoriesSet.has(work.id) ) //Catégorie "Tous" ou catégorie correspondante
+    console.log(work);
+    console.log(work.attributes);
+    console.log(work.getAttribute("category"));
+    if (categoriesSet.has("0") || categoriesSet.has(work.getAttribute("category"))) //Catégorie "Tous" ou catégorie correspondante
     {
       work.className = "work";
     }
@@ -80,7 +81,8 @@ function displayWorks(works) {
 
     newFigcaption.appendChild(newFigcaptionText);
     newWork.setAttribute("class", "work");
-    newWork.setAttribute("id", work.categoryId);
+    newWork.setAttribute("id", `work-gallery-${work.id}`);
+    newWork.setAttribute("category", work.categoryId);
     newImg.setAttribute("src", work.imageUrl);
     newImg.setAttribute("alt", work.title);
 
@@ -88,6 +90,27 @@ function displayWorks(works) {
     newWork.appendChild(newFigcaption);
     gallery.appendChild(newWork);
   });
+}
+
+function displayWork(work) {
+
+  const gallery = document.getElementById("gallery");
+
+  const newWork = document.createElement("figure");
+  const newImg = document.createElement("img");
+  const newFigcaption = document.createElement("figcaption");
+  const newFigcaptionText = document.createTextNode(work.title);
+
+  newFigcaption.appendChild(newFigcaptionText);
+  newWork.setAttribute("class", "work");
+  newWork.setAttribute("id", `work-gallery-${work.id}`);
+  newWork.setAttribute("category", work.categoryId);
+  newImg.setAttribute("src", work.imageUrl);
+  newImg.setAttribute("alt", work.title);
+
+  newWork.appendChild(newImg);
+  newWork.appendChild(newFigcaption);
+  gallery.appendChild(newWork);
 }
 
 function displayCategoriesButtons(categories) {
@@ -105,6 +128,8 @@ function displayCategoriesButtons(categories) {
   newButtons.addEventListener("click", filterButtonClick);
   categoriesSet.add("0");
   
+  const categorySelect = document.getElementById('category');
+
   categories.forEach(categorie => {
     const newButtons = document.createElement("button");
     const newTextButtons = document.createTextNode(categorie.name);
@@ -115,13 +140,13 @@ function displayCategoriesButtons(categories) {
     filter.appendChild(newButtons);
 
     newButtons.addEventListener("click", filterButtonClick);
-  });
-}
 
-async function fetchAndUse(path, functionForReponse) {
-  const response = await fetch(API_URL + path);
-  const responseJson = await response.json();
-  functionForReponse(responseJson);
+    
+    const optionSelect = document.createElement("option");
+    optionSelect.value = categorie.id;
+    optionSelect.text = categorie.name;
+    categorySelect.add(optionSelect, null);
+  });
 }
 
 fetchAndUse("works", displayWorks);

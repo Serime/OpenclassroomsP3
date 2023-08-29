@@ -1,5 +1,8 @@
 html, body {
     height: 100%;
+    margin: auto;
+    width: 100%;
+    max-width: 1140px;
 }
 
 body {
@@ -13,7 +16,7 @@ header {
     padding-top: 50px;
 }
 
-#forgot-password-text {
+#txt-error-email-missing , #txt-error-password-missing , #txt-error-login {
     margin-bottom: 30px;
     font-size: 20px;
     color: red;

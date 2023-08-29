@@ -1,0 +1,41 @@
+[33mcommit 3be6e49ad3c49f6a12551905ca62e4cb87c7a838[m[33m ([m[1;36mHEAD -> [m[1;32mdev[m[33m, [m[1;31morigin/dev[m[33m)[m
+Author: Serime <nicolas.gaillard09@gmail.com>
+Date:   Tue Aug 22 04:45:45 2023 +0200
+
+    Ajout de l'affichage de la gallery dans le modal
+
+[33mcommit 08d83e61fa760fc92803338c86ea3542a63995ea[m
+Author: Serime <nicolas.gaillard09@gmail.com>
+Date:   Tue Aug 15 11:50:51 2023 +0200
+
+    Ajout d'une permier version du modal
+
+[33mcommit df2491b9782d38edc5d332a7508ccc746a462e17[m
+Author: Serime <nicolas.gaillard09@gmail.com>
+Date:   Tue Aug 15 03:08:25 2023 +0200
+
+    Ajout de l'authentification de l'utilisateur : login.js
+
+[33mcommit d8388c129d1fb6c09b8023ee3c1b6b13014d89fb[m
+Author: Serime <nicolas.gaillard09@gmail.com>
+Date:   Mon Aug 14 19:38:25 2023 +0200
+
+    Ajout de la page login.html et login.css
+
+[33mcommit 70f845fd0d77f64e72c96f12c0cb58efb3e7dce1[m
+Author: Serime <nicolas.gaillard09@gmail.com>
+Date:   Mon Aug 14 18:36:36 2023 +0200
+
+    Ajout des buttons pour filtrer les catégories
+
+[33mcommit 5d418ff24ce5275e21f4bf33a1d9988ae524e1e4[m
+Author: Serime <nicolas.gaillard09@gmail.com>
+Date:   Sun Aug 13 23:12:16 2023 +0200
+
+    Ajout de index.js et affichage des Works via l'api (fetch)
+
+[33mcommit d279eae2ad91005a598a5208c02961a7f7e9091c[m[33m ([m[1;31morigin/main[m[33m, [m[1;32mmain[m[33m)[m
+Author: Serime <nicolas.gaillard09@gmail.com>
+Date:   Sun Aug 13 21:58:54 2023 +0200
+
+    Ajout des fichiers

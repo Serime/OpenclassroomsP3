@@ -22,14 +22,25 @@
 	align-items: center;
 	border-radius: 10px;
 }
-#close-modal {
+.close-modal {
 	border: none;
 	color: black;
 	padding: 0;
 	margin-bottom: 10px;
 	margin-left: 561px;
 }
-#close-modal:hover {
+.close-modal:hover {
+	background-color: white;
+	color: black;
+}
+.return-modal {
+	border: none;
+	color: black;
+	padding: 0;
+	margin-bottom: 10px;
+	margin-left: 561px;
+}
+.return-modal:hover {
 	background-color: white;
 	color: black;
 }
@@ -40,7 +51,7 @@
 	font-weight: 400;
 	margin-bottom: 46px;
 }
-.modal > .gallery-modal {
+.modal-gallery > .gallery-modal {
 	width: 100%;
 	display: grid;
 	grid-template-columns: repeat(5, 1fr);
@@ -48,6 +59,23 @@
 	grid-row-gap: 12px;
 	padding: 0px 105px 40px 105px;
 	box-sizing: border-box;
+}
+.modal-gallery > .gallery-modal > figure > i {
+	position: relative;
+	top: 27px;
+	left: 28px;
+	padding: 4px;
+	background-color: black;
+	border-radius: 2px;
+}
+.modal-gallery > .gallery-modal > figure > i + i {
+	left: 31px;
+}
+.modal-gallery > .gallery-modal > figure :nth-child(1) {
+	opacity: 0;
+}
+.modal-gallery > .gallery-modal > figure:hover :nth-child(1) {
+	opacity: 1;
 }
 img {
 	width: 100%;
@@ -59,7 +87,7 @@ hr {
 	border: 1px solid #B3B3B3;
 	margin-bottom: 38px;
 }
-#add-photo-modal {
+#add-work-modal {
 	background-color: #1D6154;
 	color: white;
 	height: 36px;
@@ -76,4 +104,82 @@ hr {
 }
 #del-gallery:hover {
 	background-color: white;
+}
+.modal-add-work #return-and-close-modal {
+	width: 630px;
+	display: flex;
+	justify-content: space-between;
+}
+.modal-add-work #return-and-close-modal > button {
+	margin: 0px 30px;
+}
+.modal-add-work > form > #input-file {
+	width: 420px;
+	height: 169px;
+	display: flex;
+	flex-direction: column;
+	background-color: #E8F1F6;
+	justify-content: center;
+	align-items: center;
+	margin-bottom: 30px;
+	padding: 50px 0px;
+}
+.modal-add-work > form > #input-file > img {
+	width: 58px;
+}
+.modal-add-work > form > #input-file > label {
+	width: 173px;
+	height: 36px;
+	border: none;
+	border-radius: 50px;
+	margin-top: 15px;
+	margin-bottom: 7px;
+	background-color: #CBD6DC;
+	text-align: center;
+	line-height: 36px;
+}
+.modal-add-work > form > #input-file > label:hover {
+	background-color: #6f7a80;
+}
+.modal-add-work > form > #input-file > input {
+	display: none;
+}
+.modal-add-work form{
+	width: 420px;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+}
+.modal-add-work form input , select{
+	width: 100%;
+	height: 51px;
+	margin-bottom: 21px;
+	box-shadow: 0px 4px 14px 0px #00000017;
+	border: none;
+}
+.modal-add-work > form > label{
+	align-self: flex-start;
+	margin-bottom: 10px;
+}
+.modal-add-work form #add-work{
+	width: 237px;
+	margin: 0;
+	padding: 0;
+}
+.modal-add-work form #add-work{
+	width: 237px;
+	height: 36px;
+	margin: 0;
+	padding: 0;
+	background-color: #1D6154;
+}
+.modal-add-work form #add-work:hover{
+	background-color: #0E2F28;
+}
+.modal-add-work form #add-work:disabled{
+	background-color: #A7A7A7;
+}
+.modal-add-work form hr{
+	margin-top: 26px;
 }

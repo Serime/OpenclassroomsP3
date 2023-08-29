@@ -1,17 +1,16 @@
-const API_URL = "http://localhost:5678/api/"
-//import { API_URL } from "./index.js";
-//http://localhost:5678/api/users/login
 const emailInput = document.getElementById('email');
 const passwordInput = document.getElementById('password');
 const loginInput = document.getElementById('login');
-const txtErrorLogin = document.getElementById('forgot-password-text');
+const txtErrorEmailMissing = document.getElementById('txt-error-email-missing');
+const txtErrorPasswordMissing = document.getElementById('txt-error-password-missing');
+const txtErrorLogin = document.getElementById('txt-error-login');
 
 let user = {
   email: "",
   password: ""
 };
 
-var myInit = {
+var initJson = {
   method: "POST",
   headers: {'Content-Type': 'application/json;charset=utf-8'},
   body: JSON.stringify(user),
@@ -20,34 +19,30 @@ var myInit = {
 function login() {
   user.email = emailInput.value;
   user.password = passwordInput.value;
-  myInit.body = JSON.stringify(user);
-  fetchLogin("users/login");
+  user.email ? txtErrorEmailMissing.setAttribute("class", "display-none") : txtErrorEmailMissing.setAttribute("class", "display");
+  user.password ? txtErrorPasswordMissing.setAttribute("class", "display-none") : txtErrorPasswordMissing.setAttribute("class", "display");
+  if (user.email && user.password)
+  {
+    initJson.body = JSON.stringify(user);
+    fetchAPI("users/login", initJson, loginOK, loginKO);
+  }
+  else
+  {
+    txtErrorLogin.setAttribute("class", "display-none");
+  }
 }
 
-function loginOk(responseJson) {
+function loginOK(responseJson) {
   localStorage.setItem("token", responseJson.token);
   document.location.href="index.html"; 
 }
 
-function loginKo() {
+function loginKO() {
   txtErrorLogin.setAttribute("class", "display");
 }
 
 function listenLoginInput() {
   loginInput.addEventListener("click", login);
-}
-
-async function fetchLogin(path) {
-  const response = await fetch(API_URL + path, myInit);
-  const responseJson = await response.json();
-  if (response.ok)
-  {
-    loginOk(responseJson);
-  }
-  else
-  {
-    loginKo();
-  }
 }
 
 listenLoginInput();
