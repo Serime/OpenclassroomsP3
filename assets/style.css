@@ -76,7 +76,7 @@ header > #header-regular {
     left: 0;
 	height: 59px;
     width: 100%;
-	display: flex;
+	display: none;
 	justify-content: center;
 	align-items: center;
 	gap: 44px;
@@ -112,13 +112,12 @@ h1{
 	font-family: 'Syne';
 	font-size: 22px;
 	font-weight: 800;
-	color: #B1663C
+	color: #B1663C;
 }
 h1 > span {
 	font-family: 'Work Sans';
 	font-size:10px;
 	letter-spacing: 0.1em;
-;
 }
 h2{
 	font-family: 'Syne';
@@ -258,6 +257,7 @@ button{
 	border: 1px solid #1D6154;
 	font-family: 'Syne';
 	font-weight: 700;
+	font-size: 16px;
 	color: #1D6154;
 	background-color: white;
 	text-align: center;

@@ -1,19 +1,14 @@
 const emailInput = document.getElementById('email');
 const passwordInput = document.getElementById('password');
-const loginInput = document.getElementById('login');
 const txtErrorEmailMissing = document.getElementById('txt-error-email-missing');
 const txtErrorPasswordMissing = document.getElementById('txt-error-password-missing');
 const txtErrorLogin = document.getElementById('txt-error-login');
+const loginInput = document.getElementById('login');
+loginInput.addEventListener("click", login);
 
 let user = {
   email: "",
   password: ""
-};
-
-var initJson = {
-  method: "POST",
-  headers: {'Content-Type': 'application/json;charset=utf-8'},
-  body: JSON.stringify(user),
 };
 
 function login() {
@@ -23,8 +18,8 @@ function login() {
   user.password ? txtErrorPasswordMissing.setAttribute("class", "display-none") : txtErrorPasswordMissing.setAttribute("class", "display");
   if (user.email && user.password)
   {
-    initJson.body = JSON.stringify(user);
-    fetchAPI("users/login", initJson, loginOK, loginKO);
+    initPostJson.body = JSON.stringify(user);
+    fetchAPI("users/login", initPostJson, loginOK, loginKO);
   }
   else
   {
@@ -41,9 +36,4 @@ function loginKO() {
   txtErrorLogin.setAttribute("class", "display");
 }
 
-function listenLoginInput() {
-  loginInput.addEventListener("click", login);
-}
-
-listenLoginInput();
 

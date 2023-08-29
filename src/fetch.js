@@ -1,45 +1,38 @@
-var initGetJson = {
+const initGetJson = {
   method: "GET",
   headers: {'Content-Type': 'application/json;charset=utf-8'},                   
 };
 
-async function fetchAndUse(path, functionForReponse) {
-  const response = await fetch(API_URL + path);
-  const responseJson = await response.json();
-  functionForReponse(responseJson);
-}
+const initPostJson = {
+  method: "POST",
+  headers: {'Content-Type': 'application/json;charset=utf-8'},
+  body: null,
+};
 
-async function fetchAddWork(path, myInit) {
-  const response = await fetch(API_URL + path, myInit);
-  const responseJson = await response.json();
-  if (response.ok)
-  {
-    displayWorkBis(responseJson);
-    displayWork(responseJson);
-    clickReturn();
-  }
-}
+const initPostFormData = {
+  method: "POST",
+  body: null,
+  headers: {
+    Authorization: null,
+  },                     
+};
 
-async function fetchDeleteWork(path, myInit, id) {
-  const response = await fetch(API_URL + path, myInit);
-  if (response.ok)
-  {
-    const workModal = document.getElementById(`work-modal-${id}`);
-    const workGallery = document.getElementById(`work-gallery-${id}`);
-    workModal.remove();
-    workGallery.remove();
-  }
-}
+const initDelete = {
+  method: "DELETE",
+  headers: {
+    Authorization: null,
+  },                     
+};
 
-async function fetchAPI(path, myInit = undefined, functionResponseOK, functionResponseKO) {
-  const response = await fetch(API_URL + path, myInit);
-  const responseJson = await response.json();
-  if (response.ok)
+async function fetchAPI(path, init, functionResponseOK, functionResponseKO = null) {
+  const response = await fetch(API_URL + path, init);
+  let responseJson = (init.method !== "DELETE" ? await response.json() : null) 
+  if (!response.ok && functionResponseKO)
   {
-    functionResponseOK ? functionResponseOK(responseJson) : null;
+    functionResponseKO()      
   }
   else
   {
-    functionResponseOK ? functionResponseKO() : null;
+    responseJson ? functionResponseOK(responseJson) : functionResponseOK();
   }
 }

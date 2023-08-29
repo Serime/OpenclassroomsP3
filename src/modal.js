@@ -1,94 +1,57 @@
-const modal = document.getElementById("modal");
+const modalWrapper = document.getElementById("modal-wrapper");
+
+function openModal() {
+  modalWrapper.style.display = "block";
+  modalWrapper.setAttribute("class","modal-wrapper");
+  modalWrapper.removeAttribute("aria-hidden");
+  modalWrapper.setAttribute("aria-modal", "true");
+  modalWrapper.setAttribute("open", "");
+}
+
+
 const closeButton1 = document.getElementById("close-1");
 const closeButton2 = document.getElementById("close-2");
-const returnButton = document.getElementById("return-modal");
+closeButton1.addEventListener("click", closeModal);
+closeButton2.addEventListener("click", closeModal);
+
+function closeModal() {
+  modalWrapper.style.display = "none";
+  modalWrapper.setAttribute("aria-hidden", true);
+  modalWrapper.removeAttribute("aria-modal");
+  modalWrapper.removeAttribute("open", "");
+  modalWrapper.setAttribute("style","");
+}
+
+modalWrapper.addEventListener("mousedown", testClickOutModal);
+
+function testClickOutModal(event) {
+  if (event.target.id === "modal-wrapper")
+  {
+    closeModal()
+  }
+}
+
 const addWorkModalButton = document.getElementById("add-work-modal");
-const addWorkButton = document.getElementById("add-work");
-const file = document.getElementById("file");
-const titleInput = document.getElementById("title");
-const categoryInput = document.getElementById("category");
-const imgFile = document.getElementById("img-file");
-closeButton1.addEventListener("click", clickClose);
-closeButton2.addEventListener("click", clickClose);
-returnButton.addEventListener("click", clickReturn);
-modal.addEventListener("click", clickOut);
-addWorkModalButton.addEventListener("click", clickAddWork);
-addWorkButton.addEventListener("click", addWork);
+addWorkModalButton.addEventListener("click", openModalAddWork);
+const returnButton = document.getElementById("return-modal");
+returnButton.addEventListener("click", returnModalGallery);
 const modalGallery = document.getElementById("modal-gallery");
 const modalAddWork = document.getElementById("modal-add-work");
-let modal_create = false
-let token;
 
-function clickAddWork() {
+function openModalAddWork() {
   modalGallery.style.display = "none";
   modalAddWork.style.display = "flex";
 }
 
-function clickReturn() {
+function returnModalGallery() {
   modalGallery.style.display = "flex";
   modalAddWork.style.display = "none";
 }
 
-function clickOut(event) {
-  if (event.target.id === "modal")
-  {
-    clickClose()
-  }
-}
 
-function clickClose() {
-  modal.setAttribute("class","modal-wrapper display-none");
-  modal.setAttribute("aria-hidden", true);
-  modal.removeAttribute("aria-modal");
-  modal.removeAttribute("open", "");
-  modal.setAttribute("style","");
-}
+const galleryModal = document.getElementById("gallery-modal");
 
-function modifyButtonClick() {
-  modal.setAttribute("class","modal-wrapper");
-  modal.removeAttribute("aria-hidden");
-  modal.setAttribute("aria-modal", "true");
-  modal.setAttribute("open", "");
-}
-
-function clickTrash(event) {
-  deleteWork(event.target.id)
-}
-
-function displayWorksBis(works) {
-  
-  const gallery = document.getElementById("gallery-modal");
-
-  works.forEach(work => {
-    const newWork = document.createElement("figure");
-    const newImg = document.createElement("img");
-    const newSpan = document.createElement("span");
-    const newSpanText = document.createTextNode("éditer");
-    const newIcon = document.createElement("i");
-    const newIconHover = document.createElement("i");
-
-    newSpan.appendChild(newSpanText);
-    newWork.setAttribute("class", "work");
-    newWork.setAttribute("id", `work-modal-${work.id}`);
-    newImg.setAttribute("src", work.imageUrl);
-    newImg.setAttribute("alt", work.title);
-    newIcon.setAttribute("class", "fa-solid fa-trash-can");
-    newIcon.setAttribute("id", work.id);
-    newIcon.style = "color: #ffffff;";
-    newIconHover.setAttribute("class", "fa-solid fa-arrows-up-down-left-right");
-    newIconHover.style = "color: #ffffff;";
-    newIcon.addEventListener("click", clickTrash);
-    newWork.appendChild(newIconHover);
-    newWork.appendChild(newIcon);
-    newWork.appendChild(newImg);
-    newWork.appendChild(newSpan);
-    gallery.appendChild(newWork);    
-  });
-}
-
-function displayWorkBis(work) {
-  const gallery = document.getElementById("gallery-modal");
-
+function displayWorkModal(work) {
   const newWork = document.createElement("figure");
   const newImg = document.createElement("img");
   const newSpan = document.createElement("span");
@@ -106,33 +69,39 @@ function displayWorkBis(work) {
   newIcon.style = "color: #ffffff;";
   newIconHover.setAttribute("class", "fa-solid fa-arrows-up-down-left-right");
   newIconHover.style = "color: #ffffff;";
-  newIcon.addEventListener("click", clickTrash);
+  newIcon.addEventListener("click", deleteWork);
   newWork.appendChild(newIconHover);
   newWork.appendChild(newIcon);
   newWork.appendChild(newImg);
   newWork.appendChild(newSpan);
-  gallery.appendChild(newWork);     
+  galleryModal.appendChild(newWork);     
 }
+
+function displayWorksModal(works) {
+  works.forEach(work => {
+    displayWorkModal(work);
+  });
+}
+
+function addWorkOK(responseJson) {
+  displayWorkModal(responseJson);
+  displayWork(responseJson);
+  returnModalGallery();
+}
+
+
+const file = document.getElementById("file");
+const titleInput = document.getElementById("title");
+const categoryInput = document.getElementById("category");
 
 function addWork() {
   const formData = new FormData();
-
-  var myInitFormData = {
-    method: "POST",
-    body: formData,
-    headers: {
-      Authorization: `Bearer ${token}`,
-    },                     
-  };
-
+  initPostFormData.body = formData; 
   formData.append("image", file.files[0]);
   formData.append("title", titleInput.value);
   formData.append("category", categoryInput.value);
-  for (const value of formData.values()) {
-    console.log(value);
-  }
-  console.log(myInitFormData.headers.Authorization);
-  fetchAddWork("works", myInitFormData);
+  initPostFormData.headers.Authorization = `Bearer ${token}`
+  fetchAPI("works", initPostFormData, addWorkOK);
 }
 
 function previewImage() {
@@ -148,7 +117,7 @@ function previewImage() {
       const image = new Image();
       
       image.addEventListener('load', function() {
-        imagePreviewContainer.innerHTML = '';
+        imagePreviewContainer.innerHTML = "";
         imagePreviewContainer.appendChild(image);
       });
       
@@ -162,57 +131,48 @@ function previewImage() {
   }
 }
 
+
+const addWorkButton = document.getElementById("add-work");
+addWorkButton.addEventListener("click", addWork);
+
 function inputAddWorkChange()
 {
   if (file.value && titleInput.value && categoryInput.value)
   {
     addWorkButton.removeAttribute("disabled");
   }
+  else
+  {
+    console.log("disabled");
+    addWorkButton.setAttribute("disabled", "");
+  }
 }
 
-function deleteWork(id) {
-  const formData = new FormData();
 
-  var myInitFormData = {
-    method: "DELETE",
-    headers: {
-      Authorization: `Bearer ${token}`,
-    },                     
-  };
+let lastIdWorkDelete = 0;
+
+function deleteWorkOK () {
+  const workGalleryModal = document.getElementById(`work-modal-${lastIdWorkDelete}`);
+  const workGallery = document.getElementById(`work-gallery-${lastIdWorkDelete}`);
+  workGalleryModal.remove();
+  workGallery.remove();
+}
+
+function deleteWork(event) {
+  lastIdWorkDelete = event.target.id;
+  initDelete.headers.Authorization = `Bearer ${token}`
+  fetchAPI(`works/${lastIdWorkDelete}`, initDelete, deleteWorkOK);
+}
+
+function modalInit() {
+  const modifyGalleryButton = document.getElementById("modify-gallery");
+  modifyGalleryButton.style.display = "block";
+  modifyGalleryButton.addEventListener("click", openModal);
   
-  fetchDeleteWork(`works/${id}`, myInitFormData, id);
-
-  console.log(modalGallery);
-}
-
-function logout() {
-  localStorage.clear();
-  location.reload();
-}
-
-var initGetJson = {
-  method: "GET",
-  headers: {'Content-Type': 'application/json;charset=utf-8'},                   
-};
-
-if (localStorage.getItem("token") && modal_create === false)
-{
-  token = localStorage.getItem("token");
-  modal_create = true;
-  const modifyGallery = document.getElementById("modify-gallery");
-  modifyGallery.setAttribute("class","")
-  modifyGallery.addEventListener("click", modifyButtonClick);
-  
-  //fetchAndUse("works", displayWorksBis);
-  fetchAPI("works", initGetJson, displayWorksBis);
-  modalAddWork.style.display = "none";
-
-  const headerEdition = document.getElementById("header-edition");
-  headerEdition.setAttribute("class", "");
-
   const loginLogoutLink = document.getElementById("login-logout");
   loginLogoutLink.setAttribute("href", "/");
   loginLogoutLink.innerHTML = "logout";
   loginLogoutLink.addEventListener('click', logout);
-}
 
+  modalAddWork.style.display = "none";  
+}

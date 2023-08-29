@@ -60,6 +60,9 @@
 	padding: 0px 105px 40px 105px;
 	box-sizing: border-box;
 }
+.modal-gallery > .gallery-modal > figure {
+	display: block;
+}
 .modal-gallery > .gallery-modal > figure > i {
 	position: relative;
 	top: 27px;
