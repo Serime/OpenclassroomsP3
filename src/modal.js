@@ -90,7 +90,7 @@ function addWorkOK(responseJson) {
 }
 
 
-const file = document.getElementById("file");
+const fileInput = document.getElementById("file");
 const titleInput = document.getElementById("title");
 const categoryInput = document.getElementById("category");
 
@@ -104,8 +104,10 @@ function addWork() {
   fetchAPI("works", initPostFormData, addWorkOK);
 }
 
+
+file.addEventListener("change", previewImage);
+
 function previewImage() {
-  const fileInput = document.getElementById('file');
   const file = fileInput.files[0];
   const imagePreviewContainer = document.getElementById('img-file-container');
   
@@ -134,6 +136,8 @@ function previewImage() {
 
 const addWorkButton = document.getElementById("add-work");
 addWorkButton.addEventListener("click", addWork);
+titleInput.addEventListener("change", inputAddWorkChange);
+categoryInput.addEventListener("change", inputAddWorkChange);
 
 function inputAddWorkChange()
 {
@@ -143,7 +147,6 @@ function inputAddWorkChange()
   }
   else
   {
-    console.log("disabled");
     addWorkButton.setAttribute("disabled", "");
   }
 }
@@ -164,7 +167,7 @@ function deleteWork(event) {
   fetchAPI(`works/${lastIdWorkDelete}`, initDelete, deleteWorkOK);
 }
 
-function modalInit() {
+function initModal() {
   const modifyGalleryButton = document.getElementById("modify-gallery");
   modifyGalleryButton.style.display = "block";
   modifyGalleryButton.addEventListener("click", openModal);

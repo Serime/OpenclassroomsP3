@@ -10,7 +10,7 @@
 	<meta name="description" content="">
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css"
         integrity="sha512-MV7K8+y+gLIBoVD59lQIYicR65iaqukzvf/nwasF0nqhPay5w/9lJmVM2hMDcnK1OnMGCdVK+iQrJ7lzPJQd1w=="
-        crossorigin="anonymous" referrerpolicy="no-referrer" />
+        crossorigin="anonymous" referrerpolicy="no-referrer">
 	<link rel="stylesheet" href="./assets/style.css">
 	<link rel="stylesheet" href="./assets/modal.css">
 	<script src="src/constant.js" defer></script>	
@@ -19,12 +19,12 @@
 	<script src="src/index.js" defer></script>
 </head>
 <body>
-<dialog  id="modal-wrapper" class="modal-wrapper" aria-hidden="true" aria-labelledby="title-modal">
+<dialog  id="modal-wrapper" class="modal-wrapper" aria-hidden="true" aria-label="Edition galerie">
 	<div id="modal-gallery" class="modal modal-gallery">
 		<button class="close-modal" id="close-1">
 			<i class="fa-xl fa-solid fa-xmark"></i>
 		</button>
-		<h1 id="title-modal">Galerie photo</h1>
+		<h1 class="title-modal">Galerie photo</h1>
 		<div class="gallery-modal" id="gallery-modal">
 		</div>
 		<hr>
@@ -40,21 +40,20 @@
 				<i class="fa-xl fa-solid fa-xmark"></i>
 			</button>
 		</div>		
-		<h1 id="title-modal">Ajout photo</h1>
+		<h1 class="title-modal">Ajout photo</h1>
 		<form>
 			<div id="input-file">
 				<div id="img-file-container">
-					<img id="img-file" src="./assets/icons/picture.svg" alt="image"/>
+					<img id="img-file" src="./assets/icons/picture.svg" alt="image">
 				</div>
 				<label for="file">+ Ajouter photo</label>
-				<input onchange="previewImage()" type="file" id="file" name="file" accept=".jpg,.png">
+				<input type="file" id="file" name="file" accept=".jpg,.png">
 				<span>jpg, png: 4mo max</span>
 			</div>				
 			<label for="title">Titre</label>
-			<input onchange="inputAddWorkChange()" type="text" id="title" name="title">
+			<input type="text" id="title" name="title">
 			<label for="category">Catégorie</label>
-			<select onchange="inputAddWorkChange()" name="category" id="category">
-				<option value=""></option>
+			<select name="category" id="category">
 			</select>
 			<hr>
 			<input id="add-work" type="button" value="Valider" disabled>

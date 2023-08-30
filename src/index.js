@@ -1,7 +1,7 @@
 const categoriesSet = new Set(); 
 const works = document.getElementsByClassName("work");
 
-function filterWorks() {
+function filterWorksByCategories() {
   for (let index = 0; index < works.length; index++) {
     const work = works[index];
     if (categoriesSet.has("0") || categoriesSet.has(work.getAttribute("category"))) //Catégorie "Tous" ou catégorie correspondante
@@ -15,7 +15,7 @@ function filterWorks() {
   }
 }
 
-function filterButtonClick(event) {
+function filterCategoryButtonClick(event) {
   if (event.target.className === "active")
   {
     categoriesSet.delete(event.target.id);
@@ -26,10 +26,10 @@ function filterButtonClick(event) {
     categoriesSet.add(event.target.id);
     event.target.className = "active";
 
-    //Si sélection d'une catégorie ET et de la catégorie "Tous"
+    //Si sélection simultanée d'au moins une catégorie ET et de la catégorie "Tous" = "0"
     if (categoriesSet.size > 1 && categoriesSet.has("0"))
     {
-      if(event.target.id === "0")//Sélection de "Tous" suppression des autres
+      if(event.target.id === "0")//Sélection de "Tous" -> suppression des autres catégories
       {
         const buttons = document.getElementsByClassName("active");
 
@@ -38,7 +38,7 @@ function filterButtonClick(event) {
           buttons[index].className = "inactive";
         }
       }
-      else//Sélection d'une catégorie suppression de "Tous"
+      else//Sélection d'une catégorie -> suppression de "Tous" = "0"
       {
         categoriesSet.delete("0");
         document.getElementsByClassName("active")[0].className = "inactive";
@@ -46,7 +46,7 @@ function filterButtonClick(event) {
     }
   }
 
-  filterWorks();
+  filterWorksByCategories();
 }
 
 const gallery = document.getElementById("gallery");
@@ -75,29 +75,30 @@ function displayWorks(works) {
   });
 }
 
-const filter = document.getElementById("filter-buttons");
+const categoriesFilterButtons = document.getElementById("filter-buttons");
 
+//function utiliser avec la reponse JSON de l'API : GET /categories
 function initCategoriesButtons(categories) {
-  let newButtons = document.createElement("button");
-  let newTextButtons = document.createTextNode("Tous");
+  let newButton = document.createElement("button");
+  let newTextButton = document.createTextNode("Tous");
 
-  newButtons.appendChild(newTextButtons);
-  newButtons.setAttribute("id", "0");
-  newButtons.setAttribute("class", "active");
-  newButtons.addEventListener("click", filterButtonClick);
+  newButton.appendChild(newTextButton);
+  newButton.setAttribute("id", "0");
+  newButton.setAttribute("class", "active");
+  newButton.addEventListener("click", filterCategoryButtonClick);
 
-  filter.appendChild(newButtons);
+  categoriesFilterButtons.appendChild(newButtons);
   categoriesSet.add("0");
   
   const categorySelect = document.getElementById('category');
 
   categories.forEach(category => {
-    newButtons = document.createElement("button");
-    newTextButtons = document.createTextNode(category.name);
-    newButtons.appendChild(newTextButtons);
-    newButtons.setAttribute("id", category.id);
-    newButtons.addEventListener("click", filterButtonClick);
-    filter.appendChild(newButtons);
+    newButton = document.createElement("button");
+    newTextButton = document.createTextNode(category.name);
+    newButton.appendChild(newTextButton);
+    newButton.setAttribute("id", category.id);
+    newButton.addEventListener("click", filterCategoryButtonClick);
+    categoriesFilterButtons.appendChild(newButton);
 
     //Option pour les formulaires d'ajout de work (dans le modal)
     const optionSelect = document.createElement("option");
@@ -112,6 +113,8 @@ function logout() {
   location.reload();
 }
 
+
+
 fetchAPI("works", initGetJson, displayWorks);
 fetchAPI("categories", initGetJson, initCategoriesButtons);
 
@@ -121,7 +124,7 @@ let token;
 if (modal === false && localStorage.getItem("token"))
 {
   token = localStorage.getItem("token");
-  modalInit();
+  initModal();
   modal = true; 
 
   const headerEdition = document.getElementById("header-edition");
