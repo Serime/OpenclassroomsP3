@@ -87,7 +87,7 @@ function initCategoriesButtons(categories) {
   newButton.setAttribute("class", "active");
   newButton.addEventListener("click", filterCategoryButtonClick);
 
-  categoriesFilterButtons.appendChild(newButtons);
+  categoriesFilterButtons.appendChild(newButton);
   categoriesSet.add("0");
   
   const categorySelect = document.getElementById('category');
